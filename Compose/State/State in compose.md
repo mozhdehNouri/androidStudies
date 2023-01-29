@@ -1,4 +1,8 @@
-# 
+define some definition :
+
+- **Composition:** a description of the UI built by Jetpack Compose when it executes composables.
+- **Initial composition:** creation of a Composition by running composables the first time.
+- **Recomposition:** re-running composables to update the Composition when data changes.
 
 # State in compose
 
@@ -6,22 +10,25 @@ In its most general, "state" refers to any data that is hold in memory (either R
 
 In other words, something that is "state" has two properties:
 
-Basic  description : 
+Basic description :
 
 1. It exists over time. This is what `remember` does.
 
 2. It can change. This is what `mutableStateOf` does.
-- Working with Jetpack Compose in Android and want to update the UI with newly updated data . This can be handled by using Jetpack Compose’s state management. 
+
+
+- Working with Jetpack Compose in Android and want to update the UI with newly updated data . This can be handled by using Jetpack Compose’s state management.
 
 - An app's "state" is any value that can change over time
 
 - In context of Jetpack Compose, a state is a value that is related to updating your UI ,  Every time a state value changes, Jetpack Compose will automatically update the UI for you.
 
-- Type of state can can be of anything simple Boolean or string or complex data 
+- Type of state can can be of anything simple Boolean or string or complex data
 
 - The state is an object that is connected/subscribed to one or more widgets, contains data.
 
 - any change happens in data, it will update all its subscribed UI widgets. The values of the state are changed at runtime
+
 
 ### In Jetpack Compose, what is a state:
 
@@ -35,23 +42,16 @@ Basic  description :
 
 - When the value is changed, the composable function only re-composes the composable whose data has been changed and ignores the others.
 
-- When we recompose the UI, the UI tree does not redraw itself but only updates the specific composable because redrawing the entire UI would be a very expensive task. 
+- When we recompose the UI, the UI tree does not redraw itself but only updates the specific composable because redrawing the entire UI would be a very expensive task.
 
 - Compose to be aware of state changes, your state values need to be wrapped in a `State`
 
-
-
 - The value of the state can be of any type. Sometimes it can be as simple as a `Boolean` or a `String`. Other times the state can be a complex data class that contains values for the entire rendered screen
-
-
 
 - You can do that using the `mutableStateOf()`
 
-- 
+- // moved another place mutableStateOf will return a `MutableState<T>` object and Compose will keep track of changes and update the UI whenever you modify the value
 
-- 
-
-- // moved another place  mutableStateOf will return a `MutableState<T>` object and Compose will keep track of changes and update the UI whenever you modify the value
 
 ### how does it determPine which compostables to update ?
 
@@ -64,11 +64,9 @@ We can manage the state in Jetpack Compose in two ways.
 1. **MutableState** – In this case, the state stores the value on execution and, if any composable is subscribed to it, the composable updates the value if it changes.
 2. **Model** – We use Model as an annotation to any class that will assist us in updating the UI.
 
-What exactly  MutableState dose ~~~~:
+What exactly MutableState dose ~~~~:
 
 for Compose to be aware of state changes, your state values need to be wrapped in a `State` object. You can do that using the `mutableStateOf()` function. This will return a `MutableState<T>` object and Compose will keep track of changes and update the UI whenever you modify the value.
-
-
 
 look at this example :
 
@@ -90,9 +88,12 @@ fun MyComponent() {
 }
 ```
 
- This won't work. Even though in our code we are able to modify the `enabled` value, our UI will not be aware of such a change. As a result, your UI will not be updated when you update the boolean.
+This won't work. Even though in our code we are able to modify the `enabled` value, our UI will not be aware of such a change. As a result, your UI will not be updated when you update the boolean.
 
+With Jetpack compose, we can preserve the state of view in major two ways:
 
+- Using **remember{}**, a composable function that can store a single object in memory, or by using **rememberSaveable{}**, a composable function to restore your UI state after an activity or process is recreated (for example it happens when the screen is rotated in the Android application). We can manage a simple state of view within a compose function itself.
+- Using **ViewModel**, a state holder to separate business logic from UI component. ViewModel has a longer lifecycle than the composition as they are lifecycle-aware components so ViewModel can preserve its state across configuration changes.
 
 ### How to keep state within a `ViewModel`
 
@@ -112,10 +113,6 @@ class HomeScreenViewModel : ViewModel {
 
 Note that in this case you do not need (and cannot) to use the `remember {}` function within the `ViewModel`. You cannot use it because `remember {}` is a composable function and composable functions can only be used from other composable functions. You do not need to use it, as we are using the `viewModel {}` function in our caller composable function. This function is responsible for maintaining the same instance of the `ViewModel` among composable recompositions.
 
-
-
-
-
 #### StateHoisting :
 
 ###### first of all you have to konw about state ful and state less meaning in jetpack compose:
@@ -126,11 +123,11 @@ jump to details :
 
 ## Stateful :
 
- A composable that uses `remember` to store an object creates internal state, making the composable *stateful*
+A composable that uses `remember` to store an object creates internal state, making the composable *stateful*
 
 Stateful is when Composable create, holds and modifies its own State
 
-example : 
+example :
 
 ```kotlin
 @Composable
@@ -192,11 +189,14 @@ fun HelloContent(name: String, onNameChange: (String) -> Unit) {
 
 `HelloContent` is an example of Stateless because it does not create, holds and modify its own State. Rather it only receive & hoist the State and this pattern is called State hoisting
 
-- State Hoisting : move a composable’s state outside of the composable and push it further up, making the composable stateless 
+## State Hoisting :
+
+- State Hoisting : move a composable’s state outside of the composable and push it further up, making the composable stateless
 
 - another definition :  you hoists its state
 
 - means to remove any persistent state from a composable function. Instead you pass the state via the parameters of the function
+
 
 ###### why we need to use state Hoisting :
 
@@ -211,13 +211,12 @@ var text by remember { mutableStateOf("") }
 - `by` has nothing to do with Compose. It declares a `delegated property`
 - `remember` and `mutableStateOf` are completely independent concepts. They just happen to be used together a lot. Just like how databases and RxJava are completely independent but fit nicely together for certain use cases.
 - `remember` keeps a value (any value) consistent across recompositions.
-- 
-- `mutableStateOf` returns a `MutableState.
-- 
-- `MutableState` is just a thing that holds a value, where Compose will automatically observe changes to the value. Think `MutableLiveData`, but you don't need to call `observe` yourself.
-- 
 
-## remeber  : Keeps a value over time
+- `mutableStateOf` returns a `MutableState.
+
+- `MutableState` is just a thing that holds a value, where Compose will automatically observe changes to the value. Think `MutableLiveData`, but you don't need to call `observe` yourself.
+
+## remeber : Keeps a value over time
 
 `remember` is a composable function that can be used to cache expensive operations. You can think of it as a cache which is local to your composable.
 
@@ -246,13 +245,11 @@ Text(
  )
 ```
 
- You can also use property delegates by keyword for more emphasis:
+You can also use property delegates by keyword for more emphasis:
 
 ```kotlin
 var state: Int by remember { mutableStateOf(1) }
 ```
-
-
 
 look at this example :
 
@@ -266,18 +263,18 @@ fun MyComponent() {
 }
 ```
 
- This won't work either. As soon as you change `enabled` to `false`, Compose will correctly refresh your UI when you update your state. It will also execute `mutableStateOf()` again, recreating the state object and rerendering your UI with the `enabled` value being `true`
-
-
+This won't work either. As soon as you change `enabled` to `false`, Compose will correctly refresh your UI when you update your state. It will also execute `mutableStateOf()` again, recreating the state object and rerendering your UI with the `enabled` value being `true`
 
 important note :
 If you are creating a state object within a `ViewModel` you do not need to wrap your states in a `remember {}` function, but your `ViewModel` needs to be remembered somehow. This is handled automatically for you via the dedicated `viewModel {}` or `hiltViewModel()` functions.
 
+the end definition of remebering dose:
 
+The [**remember{}**](https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary#remember(kotlin.Function0)) can be used to store both mutable [and ]()immutable objects. 
 
+A value computed by remember{} is stored in the Composition during **initial composition**, and the stored value is returned during recomposition.
 
-
-
+In each **recomposition**, remember() returns the stored value so the composable can use it. Whenever the stored value has to change, you can update it and remember() will store it. The next time a recomposition occurs, remember() will provide the latest value.
 
 ### rememberSavable :
 
@@ -297,7 +294,7 @@ State is only really useful if it can change over time. We need a way to change 
 
 2- State determines what is shown in the UI at any particular time
 
-3 - in xml when you calling setText  ui was update Compose will automatically update your UI when the state of the UI is updated  
+3 - in xml when you calling setText ui was update Compose will automatically update your UI when the state of the UI is updated
 
 refrence :
 
@@ -308,3 +305,5 @@ https://developer.android.com/jetpack/compose/state#stateful-vs-stateless
 [remember { mutableStateOf() } – A cheat sheet - DEV Community](https://dev.to/zachklipp/remember-mutablestateof-a-cheat-sheet-10ma)
 
 [Everything you need to know about State in Jetpack Compose with examples](https://www.composables.co/blog/state)
+
+https://c1ctech.com/state-and-state-hoisting-in-android-jetpack-compose/
