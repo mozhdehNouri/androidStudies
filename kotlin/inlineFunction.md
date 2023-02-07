@@ -207,7 +207,6 @@ inline fun teach(abc: () -> Unit) {
 
 deCompile Code:
 
-
 ```kotlin
 public void guide() {
     System.out.print("guide start");
@@ -220,11 +219,11 @@ example 4 :
 
 ```kotlin
   fun higherOrderFunction(aLambda: () -> Unit) {
-        
+
         doSomething()
         aLamda()
         doAnotherThing()
-        
+
     }
 ```
 
@@ -232,7 +231,7 @@ converted to java:
 
 ```kotlin
 public void higherOrderFunction(Function aLambda) {
- 
+
     doSomething();
     aLambda.invoke();//invoke will execute the logic in your lambda.
     doAnotherThing();
@@ -259,7 +258,6 @@ Imagine calling this lambda in a loop. You’ll end up creating N `Function` o
 ##### with inline keyword :
 
 ```kotlin
-
 //add the inline keyword to improve the higher order function's performance.
 inline fun higherOrderFunction(aLambda: () -> Unit) {
 
@@ -270,9 +268,9 @@ inline fun higherOrderFunction(aLambda: () -> Unit) {
 }
 
 fun callingFunction() {
-  
+
   higherOrderFunction{ print("lambda logic") }
-  
+
 }
 ```
 
@@ -282,7 +280,7 @@ converted to java :
 //note that the entire `higherOrderFunction` method
 //was copied into this method during the inlining.
 public void callingFunction() {
-  
+
   doSomething()
   System.out.print("lambda logic")
   doAnotherThing()
@@ -310,8 +308,6 @@ fun callingFunction() {
 }
 ```
 
-
-
 With the help of the **inline** keyword, the **println** lambda expression is copied in the main function in the form of System.out.println and no further calls required.
 
 advantage of inline function : Function call overhead dosen't occur. less overhead and faster program execution.
@@ -321,6 +317,10 @@ so when to make the function inline and when not :
 - when the function code is very small , its good a idea to make the function inline.
 
 - when the function code is large and called from so many places its ga bad idea to make the function inlinw, as the large code will be repeates again and again.
+
+
+
+remmebring : you cant lambda returning but when using inline key word you can non-local return 
 
 # Noinline:
 
@@ -346,11 +346,7 @@ inline fun higherOrderFunction(aLambda: () -> Unit,
 
 Note that `noinline` lambdas do not support non-local control flow,ou won’t be able to propagate your return to the calling function.
 
-
-
 another example :
-
-
 
 ```kotlin
 fun guide() {
@@ -393,6 +389,8 @@ public void teach(Function xyz) {
 
 `crossinline` in Kotlin is used to avoid non-local returns.
 
+so crossinline allow you inline body of lambda but with out allow you using none-local returns.
+
 loock at this example:
 
 ```kotlin
@@ -413,7 +411,6 @@ inline fun teach(abc: () -> Unit) {
 we have added a return statement in the lambda function that we are passing.
 
 and deCompile code is :
-
 
 ```kotlin
 public void guide() {
@@ -449,7 +446,6 @@ inline fun teach(crossinline abc: () -> Unit) {
 
 decompile :
 
-
 ```kotlin
 public void guide() {
     System.out.print("guide start");
@@ -457,12 +453,6 @@ public void guide() {
     System.out.print("guide end");
 }
 ```
-
-
-
-
-
-
 
 Resource :
 
