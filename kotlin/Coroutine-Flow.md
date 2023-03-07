@@ -356,8 +356,6 @@ There are two functions in Kotlin to start the coroutines which are as follows:
 
 To launch a coroutine, we need to use a coroutine builder like *launch* or *async*. These builder functions are actually extensions of the *CoroutineScope* interface. 
 
-
-
 The difference is that the `launch{}` returns a `Job` and does not carry any resulting value whereas the `async{}` returns an instance of `Deferred<T>`, which has an `await()` function that returns the result of the coroutine like we have future in Java in which we do `future.get()` to get the result.
 
 lets see an example :
@@ -373,8 +371,6 @@ It returns a job object which we can use to get a job's status or to cancel it.
 following example we have to do something and **NOT** return the result back.
 
 [`join`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/join.html) is used to wait for completion of the launched coroutine and it does not propagate its exception.
-
-
 
 async :
 
@@ -396,17 +392,11 @@ whereas with launch parallel function calls are not made.
 
 When making two or more network call in parallel, but you need to wait for the answers before computing the output, ie use async for results from multiple tasks that run in parallel. If you use async and do not wait for the result, it will work exactly the same as launch.
 
-
-
-
-
 Another difference between launch and async is in terms of exception handling.
 
 - launch : If any exception comes inside the **launch** block, it crashes the application if we have not handled it.
 
 - async : However, if any exception comes inside the async block, it is stored inside the resulting `Deferred` and is not delivered anywhere else, it will get silently dropped unless we handle it.
-
-
 
 `async` does return a `Deferred<>`, while `launch` does only return a `Job`, both start a new coroutine. So it depends if you require a return value or not.     
 
@@ -427,8 +417,6 @@ Another difference between launch and async is in terms of exception handling.
 
 ### Scope in Coroutine :
 
-
-
 scope in coroutine is  management the coroutine lifecycle
 
 To launch a coroutine, we need to use a coroutine builder like *launch* or *async*. These builder functions are actually extensions of the *CoroutineScope* interface. So, whenever we want to launch a coroutine, we need to start it in some scope.
@@ -436,12 +424,6 @@ To launch a coroutine, we need to use a coroutine builder like *launch* or *a
 Scopes in Kotlin Coroutines are very useful because we need to cancel the background task as soon as the activity is destroyed.
 
 Using a coroutine scope ensures that coroutines are properly managed and canceled when they are no longer needed, helping to avoid memory leaks and other issues.
-
-
-
-
-
-
 
 There are different types of coroutine scopes available in Kotlin, such as:
 
@@ -453,19 +435,14 @@ There are different types of coroutine scopes available in Kotlin, such as:
 
 4. LifecycleScope: This is a scope that is tied to a component's lifecycle, such as an activity or fragment. Coroutines launched in this scope are automatically canceled when the associated component is destroyed.
 
-
-
  There are basically **3 scopes** in Kotlin coroutines:
 
 1. Global Scope
 2. LifeCycle Scope
 3. ViewModel Scope
-
-
-
 - GlobalScope:
-
- When Coroutines are launched within the global scope, they live long as the application does.If the coroutines finish it’s a job, it will be destroyed and will not keep alive until the application dies, but let’s imagine a situation when the coroutines has some work or instruction left to do, and suddenly we end the application, then the coroutines will also die, as the maximum lifetime of the coroutine is equal to the lifetime of the application. Coroutines launched in the global scope will be launched in a separate thread.
+  
+  When Coroutines are launched within the global scope, they live long as the application does.If the coroutines finish it’s a job, it will be destroyed and will not keep alive until the application dies, but let’s imagine a situation when the coroutines has some work or instruction left to do, and suddenly we end the application, then the coroutines will also die, as the maximum lifetime of the coroutine is equal to the lifetime of the application. Coroutines launched in the global scope will be launched in a separate thread.
 
 The main problem with the coroutines launched in the global scope is that when the activity in which coroutines is launched dies, the coroutines will not die with the activity.
 
@@ -502,13 +479,9 @@ Viewmodel Scope :
 
 coroutine in this scope will live as long the view model is alive.
 
-
-
 ### WithContext :
 
 is a function provided by the Kotlin coroutine library that allows you to switch the context of a coroutine.
-
-
 
 Since It is known that async is used to get the result back, & should be used only when we need the parallel execution, whereas the launch is used when we do not want to get the result back and is used for the operation such as updating of data, etc. As we know that async is the only way till now to start the coroutine and get the result back, but the problem with async arises when we do not want to make parallel network calls. It is known when async is used, one needs to use the **await()** function, which leads to blocking of the main thread, but here comes the concept of **withContext** which removes the problem of blocking the main thread.
 
@@ -518,7 +491,7 @@ withContext is nothing but another way of writing the async where one does not h
 
 
 
-runBlocking :
+### runBlocking :
 
 it's a coroutine builder like coroutine scope.
 
@@ -541,6 +514,16 @@ diffrent between coroutine scope and runblocking ?
 - `runBlocking` is not a `suspend fun`. The thread that called it remains inside it until the coroutine is complete.
 
 - `coroutineScope` is a `suspend fun`. If your coroutine suspends, the `coroutineScope` function gets suspended as well. This allows the top-level function, a *non-suspending* function that created the coroutine, to continue executing on the same thread. The thread has "escaped" the `coroutineScope` block and is ready to do some other work.
+
+
+
+##### Exception Handling in Kotlin Coroutines :
+
+
+
+
+
+Create Custom Scope
 
 
 
