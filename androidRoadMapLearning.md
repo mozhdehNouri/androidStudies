@@ -244,3 +244,32 @@ check out this resource :
 - [GitHub - skydoves/android-developer-roadmap: 🗺 The 2022 Android Developer Roadmap suggests learning paths to understanding Android development.](https://github.com/skydoves/android-developer-roadmap)
 
 - https://www.youtube.com/watch?v=K3O-5C2Nv60
+
+#### best source for android studio :
+
+https://www.youtube.com/@AwsRh/playlists
+
+https://www.youtube.com/@codinginflow
+
+https://www.youtube.com/@PhilippLackner
+
+https://www.youtube.com/@AndroidDevelopers
+
+https://www.youtube.com/@StevdzaSan
+
+https://www.youtube.com/@codingwithmitch
+
+https://www.youtube.com/@amitshekhar
+
+ blogs :
+
+[Blog - Amit Shekhar | Mentor](https://amitshekhar.me/blog)
+
+https://www.geeksforgeeks.org/
+
+https://blog.mindorks.com/
+
+[Android Developers – Medium](https://medium.com/androiddevelopers)
+https://github.com/mzelzoghbi/android-developer-roadmap
+https://github.com/amitshekhariitbhu/android-interview-questions
+https://github.com/amitshekhariitbhu/Learn-Kotlin-Coroutines

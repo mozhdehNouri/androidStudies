@@ -1,10 +1,8 @@
+you can't do heavy opration like networking or data base... in ui thread your app will be freezing you have to using background thread . so coroutine allows running heavy tasks away from UI Thread in the background, which ultimately gives a smooth and better experience to the user of the app.
+
 A coroutine is a very efficient and complete framework to manage concurrency in a more performant and simple way.
 
- coroutine allows running heavy tasks away from UI Thread in the background, which ultimately gives a smooth and better experience to the user of the app.
-
-you can't do heavy opration like networking or data base... in ui thread your app will be freezing  you have to using background thread .
-
-#### What are Coroutines?
+#### What exactly are Coroutines mean?
 
 Coroutines = Co + Routines
 
@@ -14,11 +12,13 @@ It means that when functions cooperate with each other, we call it Coroutines.
 
 - It will enable writing asynchronous code in a synchronous way.
 
-- Overall, the Coroutines make multitasking very easy.
+- Coroutines make multitasking very easy.
 
 -  **Coroutines** and the threads both are multitasking. But the difference is that threads are managed by the OS and **coroutines by the users** as it can execute a few lines of function by taking advantage of the cooperation.
 
-- a coroutine is a lightweight and efficient way of performing concurrent or asynchronous programming. Coroutines allow you to suspend the execution of a function without blocking the thread, and then resume it later when the desired condition is met.
+- a coroutine is a lightweight and efficient way of performing concurrent or asynchronous programming.
+
+- Coroutines allow you to suspend the execution of a function without blocking the thread, and then resume it later when the desired condition is met.
 
 -  **Coroutines** are lightweight threads .A lightweight thread means it doesn't map on the native thread, so it doesn't require context switching on the processor, so they are faster.
 
@@ -34,7 +34,7 @@ It means that when functions cooperate with each other, we call it Coroutines.
   
   Coroutines, on the other hand, are much lighter in terms of resource consumption. They are implemented as suspending functions that can be paused and resumed without creating a new thread. When a coroutine is suspended, it releases the thread that was executing it, allowing other coroutines or tasks to use the same thread. This makes coroutines more efficient and scalable than traditional threads, especially in situations where a large number of concurrent operations are needed.
 
-another difinition :
+#### another difinition of Coroutine:
 
 Coroutines is the recommended solution for **asynchronous programming on Android.**
 
@@ -489,13 +489,11 @@ withContext is nothing but another way of writing the async where one does not h
 
 - `withContext` is a suspend function through which we can do a task by providing the `Dispatchers` on which we want the task to be done. `withContext` does not create a new coroutine, it only shifts the context of the existing coroutine and it's a suspend function whereas `launch` and `async` create a new coroutine and they are not suspend functions.
 
-
-
 ### runBlocking :
 
 it's a coroutine builder like coroutine scope.
 
-runBlocking is a coroutine function. By not providing any context, it will get run on the main thread.Runs a new coroutine and blocks the current thread interruptible until its completion. This function should not be used from a coroutine. It is designed to bridge regular blocking code to libraries that are written in suspending style, to be used in main functions and in tests.    
+runBlocking is a coroutine function. By not providing any context, it will get run on the main thread. Runs a new coroutine and blocks the current thread interruptible until its completion. This function should not be used from a coroutine. It is designed to bridge regular blocking code to libraries that are written in suspending style, to be used in main functions and in tests.    
 
 ```kt
 fun main() = runBlocking {
@@ -507,7 +505,7 @@ fun main() = runBlocking {
 }
 ```
 
-In this example, `runBlocking` creates a new coroutine and blocks the main thread until the coroutine completes. The `launch` function inside the coroutine creates a new coroutine that suspends for 1 second using the `delay` function and then prints "World!
+In this example,`runBlocking` creates a new coroutine and blocks the main thread until the coroutine completes. The `launch` function inside the coroutine creates a new coroutine that suspends for 1 second using the `delay` function and then prints "World!
 
 diffrent between coroutine scope and runblocking ?
 
@@ -515,25 +513,57 @@ diffrent between coroutine scope and runblocking ?
 
 - `coroutineScope` is a `suspend fun`. If your coroutine suspends, the `coroutineScope` function gets suspended as well. This allows the top-level function, a *non-suspending* function that created the coroutine, to continue executing on the same thread. The thread has "escaped" the `coroutineScope` block and is ready to do some other work.
 
-
-
 ##### Exception Handling in Kotlin Coroutines :
 
+When a coroutine fails with an exception, it will propagate said exception up to its parent! Then, the parent will 
 
+1) cancel the rest of its children
 
+2) cancel itself 
 
+3) propagate the exception up to its parent.
 
-Create Custom Scope
+#### SupervisorJob to the rescue:
 
+With a `SupervisorJob `  the failure of a child doesn’t affect other children. A `SupervisorJob` won’t cancel itself or the rest of its children. Moreover, `SupervisorJob` won’t propagate the exception either, and will let the child coroutine handle it.
 
+You can create a `CoroutineScope` like this `val uiScope = CoroutineScope(SupervisorJob())` to not propagate cancellation when a coroutine fails
 
+![.](C:\Users\mozhdeh.nouri\Desktop\0_Mrf17HLbWQPfTt1I.png)
 
+When should you use a `Job` or a `SupervisorJob`? Use a `SupervisorJob` or `supervisorScope` when you don’t want a failure to cancel the parent and siblings.
 
+example :
 
+```kt
+// Scope handling coroutines for a particular layer of my app
+val scope = CoroutineScope(SupervisorJob())
+scope.launch {
+    // Child 1
+}
+scope.launch {
+    // Child 2
+}
+```
 
+another example :
 
+```kt
+// Scope handling coroutines for a particular layer of my app
+val scope = CoroutineScope(Job())
+scope.launch {
+    supervisorScope {
+        launch {
+            // Child 1
+        }
+        launch {
+            // Child 2
+        }
+    }
+}
+```
 
-
+# 
 
 resource :
 
@@ -562,3 +592,5 @@ https://amitshekhar.me/blog/dispatchers-in-kotlin-coroutines
 [Coroutine scope functions](https://kt.academy/article/cc-scoping-functions)
 
 https://www.geeksforgeeks.org/withcontext-in-kotlin-coroutines/?ref=rp
+
+https://www.geeksforgeeks.org/runblocking-in-kotlin-coroutines-with-example/
