@@ -1,4 +1,4 @@
-you can't do heavy opration like networking or data base... in ui thread your app will be freezing you have to using background thread . so coroutine allows running heavy tasks away from UI Thread in the background, which ultimately gives a smooth and better experience to the user of the app.
+ you can't do heavy opration like networking or data base... in ui thread your app will be freezing you have to using background thread . so coroutine allows running heavy tasks away from UI Thread in the background, which ultimately gives a smooth and better experience to the user of the app.
 
 A coroutine is a very efficient and complete framework to manage concurrency in a more performant and simple way.
 
