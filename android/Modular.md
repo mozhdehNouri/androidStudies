@@ -56,11 +56,78 @@ That’s why I want to demonstrate how the incremental build works in the next s
 
 By incremental build, the build process can run independently in a shorter time than when you only have three modules for your data, domain, and presentation of the entire app. Instead, by Feature separation, you will have more isolated modules, and then you can apply these layers on each Feature module if you are interested. You can read more about these topics [here](https://martinfowler.com/bliki/PresentationDomainDataLayering.html) and [here](https://markonovakovic.medium.com/clean-architecture-is-not-domain-data-presentation-e368d7ff8579).
 
+
+
+###### Don't Do These Fatal Mistakes With a Multi-Module Architecture :
+
+each module can build independently using gradle .
+
+
+
+each module can build in parallel and it only rebuild the modulas that actually change and that make the build a little faster.
+
+
+
+##### mistake 1:
+
+the first mistake you can do  it is you modular your project at first.  
+
+There is no need to make your project modular if it is not necessary. the most of time your project no need to be modular because your project is small and when you modular it you just add complexity in your projet.
+
+
+
+##### mistake 2 :
+
+never use of layer-base approch to module your project .
+
+![1](C:\Users\mozhdeh.nouri\Desktop\all_basic.png)
+
+
+
+let's Comparison the modular approch benifit will pass in layer-base or not :
+
+
+
+the first benfit is build time :
+
+UI module depends on the domain module and the domain module depend on data module 
+if any change happens data module domain and ui module rebuild 
+
+the second reusability :
+
+you can't separate the data module and put it in another project.
+
+third benefit delegation :
+
+broke your code you cant use for example team A worked on Module A and Team B work on Module B 
+
+
+
+the best practice is to use a hybrid approach for modularize :
+
+first separate module by feature and in the module you have different modules and separate by layer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Resource :
 
 https://developer.android.com/topic/modularization   check this again 
 
 [Android Modularization Preps: Things to know Before Modularizing Your App - droidcon](https://www.droidcon.com/2022/02/15/android-modularization-preps-things-to-know-before-modularizing-your-app/)
+
+https://www.youtube.com/watch?v=p7-AffMucBw
 
 ----
 
