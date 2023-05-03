@@ -8,17 +8,45 @@ ModularizationModularization is a practice of organizing a codebase into loosely
 
 Benefits of Modular :
 
-- Reusability
-
-- Scalability
-
-- Ownership
-
-- Encapsulation
-
 - Testability
 
-- Testability
+- **Scalability** : In a tightly coupled codebase, a single change can trigger a cascade of alterations. A properly modularized project will embrace the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns) principle. This in turn empowers the contributors with more autonomy while also enforcing architectural patterns.
+
+- **Enabling work in parallel** : Modularization helps decrease version control conflicts and enables more efficient work in parallel for developers in larger teams.
+
+- **Ownership** - A module can have a dedicated owner who is responsible for maintaining the code and tests, fixing bugs, and reviewing changes.
+
+- **Encapsulation** - Isolated code is easier to read, understand, test and maintain.
+
+- **Reduced build time** - Leveraging Gradle’s parallel and incremental build can reduce build times.
+
+- **Dynamic delivery** - Modularization is a requirement for [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) which allows certain features of your app to be delivered conditionally or downloaded on demand.
+
+- **Reusability** - Proper modularization enables opportunities for code sharing and building multiple apps, across different platforms, from the same foundation.
+
+  
+
+### Modularization pitfalls
+
+However, modularization is a pattern that can be misused, and there are some gotchas to be aware of when modularizing an app:
+
+**Too many modules** - each module has an overhead that comes in the form of increased complexity of the build configuration. This can cause Gradle sync times to increase, and incurs an ongoing maintenance cost. In addition, adding more modules increases the complexity of the project’s Gradle setup, when compared to a single monolithic module. This can be mitigated by making use of convention plugins, to extract reusable and composable build configuration into type-safe Kotlin code. In the Now in Android app, these convention plugins can be found in the [`build-logic` folder](https://github.com/android/nowinandroid/tree/main/build-logic).
+
+**Not enough modules** - conversely if your modules are few, large and tightly coupled, you end up with yet another monolith. This means you lose some benefits of modularization. If your module is bloated and has no single, well defined purpose, you should consider splitting it.
+
+**Too complex** - there is no silver bullet here. In fact it doesn’t always make sense to modularize your project. A dominating factor is the size and relative complexity of the codebase. If your project is not expected to grow beyond a certain threshold, the scalability and build time gains won’t apply.
+
+
+
+##### Modularization strategy:
+
+- **Low coupling** - Modules should be as independent as possible from one another, so that changes to one module have zero or minimal impact on other modules. They should not possess knowledge of the inner workings of other modules.
+
+- **High cohesion** - A module should comprise a collection of code that acts as a system. It should have clearly defined responsibilities and stay within boundaries of certain domain knowledge. For example, the `core:network` module in Now in Android is responsible for making network requests, handling responses from a remote data source, and supplying data to other modules.
+
+
+
+
 
 what is a module :
 
@@ -56,17 +84,11 @@ That’s why I want to demonstrate how the incremental build works in the next s
 
 By incremental build, the build process can run independently in a shorter time than when you only have three modules for your data, domain, and presentation of the entire app. Instead, by Feature separation, you will have more isolated modules, and then you can apply these layers on each Feature module if you are interested. You can read more about these topics [here](https://martinfowler.com/bliki/PresentationDomainDataLayering.html) and [here](https://markonovakovic.medium.com/clean-architecture-is-not-domain-data-presentation-e368d7ff8579).
 
-
-
 ###### Don't Do These Fatal Mistakes With a Multi-Module Architecture :
 
 each module can build independently using gradle .
 
-
-
 each module can build in parallel and it only rebuild the modulas that actually change and that make the build a little faster.
-
-
 
 ##### mistake 1:
 
@@ -74,19 +96,13 @@ the first mistake you can do  it is you modular your project at first.
 
 There is no need to make your project modular if it is not necessary. the most of time your project no need to be modular because your project is small and when you modular it you just add complexity in your projet.
 
-
-
 ##### mistake 2 :
 
 never use of layer-base approch to module your project .
 
 ![1](C:\Users\mozhdeh.nouri\Desktop\all_basic.png)
 
-
-
 let's Comparison the modular approch benifit will pass in layer-base or not :
-
-
 
 the first benfit is build time :
 
@@ -101,11 +117,17 @@ third benefit delegation :
 
 broke your code you cant use for example team A worked on Module A and Team B work on Module B 
 
-
-
 the best practice is to use a hybrid approach for modularize :
 
 first separate module by feature and in the module you have different modules and separate by layer
+
+
+
+
+
+
+
+
 
 
 
@@ -128,6 +150,12 @@ https://developer.android.com/topic/modularization   check this again
 [Android Modularization Preps: Things to know Before Modularizing Your App - droidcon](https://www.droidcon.com/2022/02/15/android-modularization-preps-things-to-know-before-modularizing-your-app/)
 
 https://www.youtube.com/watch?v=p7-AffMucBw
+
+[nowinandroid/ArchitectureLearningJourney.md at main · android/nowinandroid · GitHub](https://github.com/android/nowinandroid/blob/main/docs/ArchitectureLearningJourney.md)
+
+[nowinandroid/ModularizationLearningJourney.md at main · android/nowinandroid · GitHub](https://github.com/android/nowinandroid/blob/main/docs/ModularizationLearningJourney.md)
+
+
 
 ----
 
