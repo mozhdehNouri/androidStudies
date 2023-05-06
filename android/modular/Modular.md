@@ -29,8 +29,6 @@ ModularizationModularization is a practice of organizing a codebase into loosely
     
     With multiple modules, however, Gradle can build several modules in parallel and avoid building modules that have no code changed it already has a cached artifact for. This speeds up your incremental builds and even your clean builds if you use the [Gradle build cache](https://gradle.com/build-cache/).
 
-
-
 - **Dynamic delivery** - Modularization is a requirement for [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) which allows certain features of your app to be delivered conditionally or downloaded on demand.
 
 - **Reusability** - Proper modularization enables opportunities for code sharing and building multiple apps, across different platforms, from the same foundation.
@@ -41,7 +39,7 @@ ModularizationModularization is a practice of organizing a codebase into loosely
 
 However, modularization is a pattern that can be misused, and there are some gotchas to be aware of when modularizing an app:
 
-**Too many modules** - each module has an overhead that comes in the form of increased complexity of the build configuration. This can cause Gradle sync times to increase, and incurs an ongoing maintenance cost. In addition, adding more modules increases the complexity of the project’s Gradle setup, when compared to a single monolithic module. This can be mitigated by making use of convention plugins, to extract reusable and composable build configuration into type-safe Kotlin code. In the Now in Android app, these convention plugins can be found in the [`build-logic` folder](https://github.com/android/nowinandroid/tree/main/build-logic).
+
 
 **Not enough modules** - conversely if your modules are few, large and tightly coupled, you end up with yet another monolith. This means you lose some benefits of modularization. If your module is bloated and has no single, well defined purpose, you should consider splitting it.
 
@@ -73,23 +71,17 @@ Modularization by layer involves breaking down an application into separate modu
 
 With this approach you will have too many modules. The **app** module in the second approach is divided into feature modules. And some shared codes between features are also moved to a separate module
 
-
-
 #### Modularization by Feature:
 
 Modularization by feature involves breaking down an application into separate modules based on the different features or use cases of the application. For example, an e-commerce application might have separate modules for product search, product details, shopping cart, and checkout.
 
 Modularization by feature can help improve code organization and make it easier to add new features and functionality to an application. However, it can also lead to duplication of code and dependencies between different feature modules.
 
-
-
 #### Hybrid Approaches :
 
 Hybrid approaches combine modularization by layer and modularization by feature. For example, an application might have separate modules for the presentation layer, domain layer, and data layer, but also have separate modules for each feature or use case of the application.
 
 Hybrid approaches can help balance the benefits of modularization by layer and modularization by feature, but can also lead to increased complexity and dependencies between modules.
-
-
 
 ##### Conclusion
 
@@ -118,8 +110,6 @@ There is no need to make your project modular if it is not necessary. the most o
 ##### mistake 2 :
 
 never use of layer-base approch to module your project .
-
-
 
 let's Comparison the modular approch benifit will pass in layer-base or not :
 
@@ -150,7 +140,7 @@ https://www.youtube.com/watch?v=p7-AffMucBw
 
 [nowinandroid/ArchitectureLearningJourney.md at main · android/nowinandroid · GitHub](https://github.com/android/nowinandroid/blob/main/docs/ArchitectureLearningJourney.md)
 
-[nowinandroid/ModularizationLearningJourney.md at main · android/nowinandroid · GitHub](https://github.com/android/nowinandroid/blob/main/docs/ModularizationLearningJourney.md)
+
 
 https://medium.com/android-bits/android-app-modularization-tips-d1509e1dea5c
 
