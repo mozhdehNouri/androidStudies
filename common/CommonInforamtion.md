@@ -28,5 +28,3 @@ The `sourceCompatibility` and `targetCompatibility` options are also set to `Jav
 `com.android.tools:desugar_jdk_libs:1.1.5` dependency to the `coreLibraryDesugaring` configuration. This dependency provides the necessary classes and methods to replace calls to newer Java APIs with equivalent code that works on older Android versions.
 
 -----
-
-
