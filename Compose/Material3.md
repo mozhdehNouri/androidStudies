@@ -14,9 +14,9 @@ in this article we focus of material 3 build we have a summary of material 2
 - Variants of primary and secondary colors
 - Additional UI colors, such as colors for backgrounds, surfaces, errors, typography, and iconography.
 
-### Primary color
+### Primary color:
 
-A primary color is the color displayed most frequently across your app’s screens and components.   like button - topAppBar
+A primary color is the color displayed most frequently across your app’s screens and components.   like  topAppBar
 
 
 
