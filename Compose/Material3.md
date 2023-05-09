@@ -1,8 +1,10 @@
-## android material 3 in compose  :
+## android material
+
+in this article we focus of material 3 build we have a summary of material 2
 
 ----
 
-### for remembering material 2 Color :
+### for remembering material 2 Color Palette :
 
  you select a primary and a secondary color to represent your brand. 
 
@@ -11,8 +13,6 @@
 - Primary and secondary colors
 - Variants of primary and secondary colors
 - Additional UI colors, such as colors for backgrounds, surfaces, errors, typography, and iconography.
-
-<img title="" src="file:///C:/Users/mozhdeh.nouri/Desktop/unnamed.png" alt="1" width="433" data-align="center">
 
 ### Primary color
 
@@ -38,8 +38,6 @@ Secondary colors are best for:
 
 
 
-<img title="" src="file:///C:/Users/mozhdeh.nouri/Desktop/unnamed%20(1).png" alt="1" width="321" data-align="center">
-
 ### Surface, background, and error colors
 
 Surface, background, and error colors typically don’t represent brand:
@@ -58,11 +56,39 @@ App surfaces use colors from specific categories in your color palette, such as 
 
 This category of colors is called “on” colors
 
-<img title="" src="file:///C:/Users/mozhdeh.nouri/Desktop/unnamed%20(2).png" alt="1" width="364" data-align="center">
+
+
+#### Typography :
+
+type scale :
 
 
 
-#### StartMaterial 3 :
+| Scale Category | Weight  | Size | Usage |
+| -------------- | ------- | ---- | ----- |
+| H1             | Light   | 96   |       |
+| H2             | Light   | 60   |       |
+| H3             | Regular | 48   |       |
+| H4             | Regular | 34   |       |
+| H5             | Regular | 24   |       |
+| H6             | Medium  | 20   |       |
+| Subtitle1      | Regular | 16   |       |
+| Subtitle2      | Medium  | 14   |       |
+| Body1          | Regular | 16   |       |
+| Body2          | Regular | 14   |       |
+| Button         | Medium  | 14   |       |
+| Caption        | Regular | 12   |       |
+| OverLine       | Regular | 10   |       |
+
+
+
+
+
+----
+
+
+
+#### Material 3 :
 
 
 
@@ -73,3 +99,7 @@ This category of colors is called “on” colors
 Resource :
 
 https://www.youtube.com/watch?v=41VZhwrXAKI
+
+https://m2.material.io/design/color/the-color-system.html#color-theme-creation
+
+https://m3.material.io/theme-builder#/custom
