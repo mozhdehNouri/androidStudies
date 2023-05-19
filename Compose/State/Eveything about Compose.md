@@ -1,14 +1,16 @@
 ## Lifecycle overview
 
- a Composition **describes the UI of your app and is produced by running composables**
+a Composition **describes the UI of your app and is produced by running composables**
 
 Think of a Composition as a tree-like structure that represents your UI. At the top of the tree, you have the root composable, which is the starting point of your UI. From there, you have child composables that represent different components or elements of your UI, such as buttons, text fields, or images.
 
+
+
 Each composable function you write contributes to building this tree-like structure. Composables are like building blocks that you assemble together to create your app's UI. The Composition is the result of running these composables, meaning that they are executed to create the actual UI.
 
-By running the composables, Compose constructs the Composition, which is a complete representation of your app's UI hierarchy. This allows Compose to efficiently handle updates and changes to your UI by recomposing only the necessary parts of the Composition when needed.
 
-In summary, a Composition in Compose is a tree-like structure that describes your app's UI. It's created by running composables, which are individual building blocks that define different parts of the UI. The Composition is the result of assembling these composables together and serves as the blueprint for how your app's UI should look and behave.
+
+a Composition in Compose is a tree-like structure that describes your app's UI. It's created by running composables, which are individual building blocks that define different parts of the UI. The Composition is the result of assembling these composables together and serves as the blueprint for how your app's UI should look and behave.
 
 When Jetpack Compose runs your composables for the first time, during *initial composition*, it will keep track of the composables that you call to describe your UI in a Composition. Then, when the state of your app changes, Jetpack Compose schedules a *recomposition*. Recomposition is when Jetpack Compose re-executes the composables that may have changed in response to state changes, and then updates the Composition to reflect any changes.
 

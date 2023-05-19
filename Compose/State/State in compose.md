@@ -17,22 +17,18 @@ Basic description :
 2. It can change. This is what `mutableStateOf` does.
 
 
+
 - Working with Jetpack Compose in Android and want to update the UI with newly updated data . This can be handled by using Jetpack Compose’s state management.
 
 - An app's "state" is any value that can change over time
 
-- In context of Jetpack Compose, a state is a value that is related to updating your UI ,  Every time a state value changes, Jetpack Compose will automatically update the UI for you.
+- In context of Jetpack Compose, a state is a value that is related to updating your UI ,  Every time a state value changes, Jetpack Compose will automatically update the UI for you or can call recompose
 
-- Type of state can can be of anything simple Boolean or string or complex data
+- Type of state can be of anything simple Boolean or string or complex data
 
-- The state is an object that is connected/subscribed to one or more widgets, contains data.
+- The state is an object that is connected/subscribed to one or more widgets, contains data. or we can say a state is an object that contains data that is mapped to one or more widgets.
 
 - any change happens in data, it will update all its subscribed UI widgets. The values of the state are changed at runtime
-
-
-### In Jetpack Compose, what is a state:
-
-- a state is an object that contains data that is mapped to one or more widgets.
 
 - We can update the data shown in the widgets by using the value from the state object.
 
@@ -51,7 +47,6 @@ Basic description :
 - You can do that using the `mutableStateOf()`
 
 - // moved another place mutableStateOf will return a `MutableState<T>` object and Compose will keep track of changes and update the UI whenever you modify the value
-
 
 ### how does it determPine which compostables to update ?
 
@@ -197,7 +192,6 @@ fun HelloContent(name: String, onNameChange: (String) -> Unit) {
 
 - means to remove any persistent state from a composable function. Instead you pass the state via the parameters of the function
 
-
 ###### why we need to use state Hoisting :
 
 easier to test , tend to have few bugs , and open uo more apportunities for reuse
@@ -209,7 +203,9 @@ var text by remember { mutableStateOf("") }
 ```
 
 - `by` has nothing to do with Compose. It declares a `delegated property`
+
 - `remember` and `mutableStateOf` are completely independent concepts. They just happen to be used together a lot. Just like how databases and RxJava are completely independent but fit nicely together for certain use cases.
+
 - `remember` keeps a value (any value) consistent across recompositions.
 
 - `mutableStateOf` returns a `MutableState.
