@@ -1,6 +1,16 @@
-Android Modularization 
+### Android Modularization
 
-what is Modularization :
+###### Modules
+
+A *module* is a collection of source files and build settings that let you divide your project into discrete units of functionality. Your project can have one or many modules, and one module can use another module as a dependency. You can independently build, test, and debug each module.
+
+
+
+
+
+
+
+###### what is Modularization :
 
 Modularization is a means of structuring your codebase in a way that improves maintainability and helps avoid these problems.
 
@@ -38,8 +48,6 @@ ModularizationModularization is a practice of organizing a codebase into loosely
 ### Modularization pitfalls
 
 However, modularization is a pattern that can be misused, and there are some gotchas to be aware of when modularizing an app:
-
-
 
 **Not enough modules** - conversely if your modules are few, large and tightly coupled, you end up with yet another monolith. This means you lose some benefits of modularization. If your module is bloated and has no single, well defined purpose, you should consider splitting it.
 
@@ -140,9 +148,9 @@ https://www.youtube.com/watch?v=p7-AffMucBw
 
 [nowinandroid/ArchitectureLearningJourney.md at main · android/nowinandroid · GitHub](https://github.com/android/nowinandroid/blob/main/docs/ArchitectureLearningJourney.md)
 
-
-
 https://medium.com/android-bits/android-app-modularization-tips-d1509e1dea5c
+
+https://developer.android.com/studio/projects#ApplicationModules
 
 ----
 
