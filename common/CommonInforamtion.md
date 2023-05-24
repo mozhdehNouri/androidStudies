@@ -128,7 +128,7 @@ So, "implementation" keeps the library private to your code, while "api" makes i
 
 ----
 
-###### kapt.use.worker.api=false  in Gradle.properties
+##### kapt.use.worker.api=false  in Gradle.properties
 
 "kapt.use.worker.api=false" is a setting in the Android Gradle build system that disables a feature called the Gradle Worker API for a tool called KAPT.
 
@@ -141,3 +141,70 @@ KAPT is used for processing annotations in Kotlin projects. By default, KAPT use
 But keep in mind that disabling the parallel processing feature may slow down the build process, especially for larger projects. So, it's usually best to leave it enabled unless you're experiencing specific problems.
 
 -----
+
+##### Moshi - Kotshi - GSON
+
+###### if you confused to use which one in your project read this :
+
+Moshi, Kotshi, and Gson are all popular Java libraries used for converting Java objects to JSON (serialization) and JSON to Java objects (deserialization). Each library has its own features and advantages. Let's discuss the differences between them:
+
+1. Moshi:
+   
+   - Developed by Square, Moshi is a lightweight JSON library that focuses on simplicity and speed.
+   - It provides automatic JSON serialization and deserialization for Java objects.
+   - Moshi supports features like custom type adapters, Kotlin nullability, and lenient parsing.
+   - It is known for its excellent performance and low memory footprint.
+   - Moshi integrates well with other Square libraries like Retrofit and OkHttp.
+
+2. Kotshi:
+   
+   - Kotshi is an annotation processor built on top of Moshi, providing additional functionality and convenience.
+   - It simplifies the process of writing custom type adapters by generating them automatically based on annotations.
+   - Kotshi is primarily used with Kotlin, taking advantage of Kotlin's language features.
+   - It offers features like sealed class support, default values for properties, and the ability to customize serialization/deserialization behavior.
+
+3. Gson:
+   
+   - Gson is a popular JSON library developed by Google.
+   - It provides a simple API for JSON serialization and deserialization in Java.
+   - Gson supports customization through type adapters and type hierarchy handling.
+   - It has a wide range of features, including JSON tree model, streaming API, and support for circular references.
+   - Gson has been around for a longer time and has a large user base.
+
+Choosing the "better" library depends on your specific requirements and preferences. Here are some considerations:
+
+- If simplicity, speed, and low memory footprint are crucial factors, Moshi might be a good choice.
+- If you're working with Kotlin and prefer a convenient annotation-based approach, Kotshi can be beneficial.
+- If you need a more mature library with a wider range of features and a large community, Gson might be preferable.
+
+----
+
+##### different between  Okhttp and Retrofit and what is the relationship between them?
+
+Retrofit and OkHttp are two libraries used for network communication in Android.
+
+OkHttp is a powerful HTTP client library that handles low-level network operations like making HTTP requests and managing connections.
+
+Retrofit is built on top of OkHttp and provides a higher-level API for making network requests. It simplifies the process by allowing you to define API endpoints and handle responses using annotations. Retrofit uses OkHttp under the hood to perform the actual network communication.
+
+In simple terms, OkHttp does the heavy lifting of network operations, while Retrofit adds a layer of abstraction to make it easier to work with APIs in Android applications.
+
+----
+
+##### hilt providing note :
+
+1- To provide DAO we don't need to put @Singleton annotaion
+
+2- To provide Dispatcher we don't need to put @Singleton annotaion but we provide @Qualifier like annotation class IoDispatcher beacuse In the context of using `@Qualifier` with `CoroutineDispatcher` in Android development, it allows you to provide different dispatchers for different use cases, such as I/O operations, computation-heavy tasks, or main thread interactions. For example, you can define a custom qualifier annotation called `@IoDispatcher` using `@Qualifier` as follows:
+
+```kt
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class IoDispatcher
+```
+
+By using this annotation, you can annotate a `CoroutineDispatcher` parameter to indicate that it should be injected with a dispatcher specifically suited for I/O operations. This provides a way to differentiate between dispatchers meant for different purposes.
+
+3 - if our component have @InstallIn(SingletonComponent::class) but the function don't have @Singleton the component is provide in whole application but every time we call a function create a new instance of it
+
+---
