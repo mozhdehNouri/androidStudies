@@ -2,8 +2,6 @@
 
 #### Using the "Build-logic" convention Plugin and Version Catalog instead of buildSrc
 
-
-
 the common way to organize gradle plugin and dependecie in modular project is using buildSrc Approch but the BuildSrc has some pitfalls and weak points that i want to mention :
 
 1. Build time: building the "buildSrc" folder can take a significant amount of time, even if none of the plugins defined in "buildSrc" are used in the current build. This can slow down the development process, especially if you are frequently making small changes to the project.
@@ -30,8 +28,6 @@ Comparison between buildSrc and build-logic :
 
 Overall, both approaches have their strengths and weaknesses, and the choice between them will depend on the specific needs of your project. In general, if you only need to define custom Gradle plugins, the "buildSrc" folder may be the better choice. If you need more flexibility and want to avoid code duplication, the "build-logic" approach may be a better fit.
 
-
-
 ##### what is Convention plugin :
 
 Convention plugins in Android Gradle are a type of plugin that provides a set of conventions and default behaviors for building Android projects. Convention plugins are designed to simplify the build process by providing a predefined structure and set of configurations that developers can use as a starting point for their projects.
@@ -48,8 +44,6 @@ Some examples of convention plugins for Android Gradle include:
 
 Convention plugins can be very useful for simplifying the build process and reducing the amount of boilerplate code required to set up a new Android project. However, they may not always be suitable for complex projects that require more customization and flexibility in the build process.
 
-
-
 what benefits convention plugin provide for our project :
 
 1. Simplifying the build process: Convention plugins provide a set of conventions and default behaviors that simplify the build process for Android projects. By following the conventions set by the plugin, developers can avoid the need to write custom configurations for their projects.
@@ -59,8 +53,6 @@ what benefits convention plugin provide for our project :
 3. Encouraging best practices: Convention plugins are designed to encourage best practices for building Android projects. By using a convention plugin, developers can be confident that their project follows established best practices and is set up in a consistent manner.
 
 4. Supporting common tasks: Convention plugins often provide support for common tasks in Android projects, such as building libraries, working with Kotlin, or using annotation processing tools. This can save developers time and effort by providing built-in support for these tasks.
-
-
 
 ### Using Version catalog :
 
@@ -73,8 +65,6 @@ Version Catalog files are shareable, so it’s even easier to have a standard co
 Also, in addition to [composite builds](https://docs.gradle.org/current/userguide/composite_builds.html), it performs better in comparison with the `buildSrc` solution. For instance with `buildSrc`, when we increment a version number the build is cleaned and needs to be rebuilt. This is not the case for Version Catalog.
 
 The Version Catalog is a great new way to handle dependency management on our projects. It makes the maintenance of both libraries and versions easier and also allows all the flexibility that Gradle has to offer. Some Android projects already started migrating and we will start to see more and more code, examples and improvements on this amazing feature.
-
-
 
 ##### 1. Create the libs.versions.toml file
 
@@ -96,8 +86,6 @@ compose_icons = { module = "androidx.compose.material:material-icons-extended", 
 
 note :It’s worth mentioning that all the dependency alias are normalized by Gradle. It means that every alias that has `-`, `_` or`.` will be updated to use `.`instead. For instance the alias `compose_ui`, `compose-ui` or `compose.ui` will be normalized as `compose.ui`.
 
-
-
 ##### 2 - ## Create a dedicated module for plugins
 
 we need a dedicated module. The module does not need a specific name, but just make sure that it won’t conflict with the existing ones in your project.
@@ -106,7 +94,7 @@ This module needs to contain at least two files: a `build.gradle(.kts)` and `
 
 ```kt
 // build.gradle.kts file "build-logic"
- 
+
  plugins {
     `kotlin-dsl`
 }
@@ -116,8 +104,6 @@ repositories {
     google()
 }
 ```
-
-
 
 ```kt
 //setttings.gradle.kts "build-logic"
@@ -133,8 +119,6 @@ dependencyResolutionManagement {
     }
 }
 ```
-
-
 
 ## 3. Setup Composite Build
 
@@ -155,33 +139,23 @@ pluginManagement {
 
 The code above sets the plugin management to not only look for dependencies in the remote repositories but also search for them in our `plugins` module.
 
-
-
 ## 4. Use the Version Catalog
 
 ```kt
  dependencies {
     // Adds a single dependency
     implementation libs.kotlin
-    
+
     // Add a group of dependencies
     implementation libs.bundles.compose
 }
 ```
-
-
 
 ## Automatically update versions
 
 One of the advantages of the Version Catalog is the ability to use tools to automatically update them. For projects on GitHub, [RenovateBot](https://github.com/renovatebot/renovate) is a great tool to integrate into your pipeline. This bot reads your `libs.versions.toml` and automatically creates Pull Requests to update your dependencies.
 
  if your project does not support that plugin, a good alternative is the [Version Catalog Update Plugin](https://github.com/littlerobots/version-catalog-update-plugin) to directly apply to the project’s Gradle file. Both plugins are widely configurable and help us keep the project dependencies fresh.
-
-
-
-
-
-
 
 Resource :
 
@@ -192,3 +166,5 @@ https://proandroiddev.com/using-version-catalog-on-android-projects-82d88d2f79e5
 [Leveraging Gradle convention plugins to enhance your build configuration - Satyan Jacquens - YouTube](https://www.youtube.com/watch?v=Fx46ttEfZk8)
 
 https://developer.android.com/build/migrate-to-catalogs#kts
+
+https://github.com/jjohannes/idiomatic-gradle
