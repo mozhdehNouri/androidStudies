@@ -30,11 +30,7 @@ class IntStack {
 
 nothing fancy for now. but what happens if we need to store integer strings,or even puppies? Then we’d need to create two more classes: `StringStack` and `PuppyStack`.
 
-
-
 Would the puppy stack do anything differently than the integer stack? Of course not. As a result, there’s no need to create separate classes for each case. It’s enough to create a generic stack that can be used anywhere in our project :
-
-
 
 ```kt
 class Stack<T> {
@@ -69,7 +65,7 @@ if(array[i]==element){
     foundElement(i,array[i])
     return
 }   
- 
+
 }
    foundElement(-1,null)
     return
@@ -79,7 +75,7 @@ if(array[i]==element){
 
 
 fun main(){
-    
+
 val arrayUtil = ArrayUtil(arrayOf(1,2,3,4,5))
 arrayUtil.findElement(3){index,element ->
     println("$index")
@@ -105,7 +101,7 @@ if(array[i]==element){
     foundElement(i,array[i])
     return
 }   
- 
+
 }
    foundElement(-1,null)
     return
@@ -115,7 +111,7 @@ if(array[i]==element){
 
 
 fun main(){
-    
+
 val arrayUtil = ArrayUtil<Int>(arrayOf(1,2,3,4,5))
 val arrayUtil1 = ArrayUtil<String>(arrayOf(1,2,3,4,5))
 arrayUtil.findElement(3){index,element ->
@@ -128,7 +124,6 @@ arrayUtil.findElement(3){index,element ->
 We can do several input like X,T
 
 ```kt
-
 class ArrayUtil<T,X,C>(private val array :Array<T>){}
 
 
@@ -139,14 +134,7 @@ fun main (){
 val a = ArrayUtil<String,Int,Float>  
 
 }
-
-
-
 ```
-
-
-
-
 
 define a generic class :
 
@@ -290,6 +278,54 @@ Conversely, by using "in," you can declare that a generic type can only consume 
 
 
 
+
+
+# Deep dive into generic :
+
+One of the trickiest aspects of Java's type system is the wildcard types. Kotlin doesn't have these. Instead, Kotlin has declaration-site variance and type projections.
+
+
+
+# Wildcards in Java :
+
+The **question mark (?)** is known as the **wildcard** in generic programming. It represents an unknown type. The wildcard can be used in a variety of situations such as the type of a parameter, field, or local variable; sometimes as a return type. Unlike arrays, different instantiations of a generic type are not compatible with each other, not even explicitly. This incompatibility may be softened by the wildcard if ? is used as an actual type parameter.
+
+
+
+### Kotlin Generics - What is Variance?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Resource :
 
 https://www.geeksforgeeks.org/kotlin-generics/
@@ -300,4 +336,8 @@ https://blog.logrocket.com/understanding-kotlin-generics/
 
 [Generics, objects, and extensions &nbsp;|&nbsp; Android Developers](https://developer.android.com/codelabs/basic-android-kotlin-compose-generics#1)
 
-https://www.youtube.com/watch?v=yuJNXSZFET8
+[Generics: in, out, where | Kotlin Documentation](https://kotlinlang.org/docs/generics.html#variance)
+
+[Kotlin Generics and Variance - Kotlin Expertise Blog](https://kotlinexpertise.com/kotlin-generics-and-variance-vs-java/)
+
+[Wildcards in Java - GeeksforGeeks](https://www.geeksforgeeks.org/wildcards-in-java/)
