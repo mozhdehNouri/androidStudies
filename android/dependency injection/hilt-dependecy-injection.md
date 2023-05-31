@@ -544,7 +544,8 @@ A `ViewModel` is a special case: it’s not instantiated directly, as the fram
 interface Milk { ... }
 interface Coffee { ... }
 
-class LatteViewModel @ViewModelInject constructor(
+@
+class LatteViewModel @Inject  constructor(
   private val milk: Milk,
   private val coffee: Coffee
 ) : ViewModel() {
