@@ -208,3 +208,8 @@ By using this annotation, you can annotate a `CoroutineDispatcher` parameter to 
 3 - if our component have @InstallIn(SingletonComponent::class) but the function don't have @Singleton the component is provide in whole application but every time we call a function create a new instance of it
 
 ---
+
+##### when using SaveStateHandle in viewmodel class
+
+imaging you have an id or a search parameter and send it as fragment or activity to ViewModel if the app proccess will kill for any reason and you return app from background you app will crash beause its don't have parameter 
+for this reason you have to use SaveStateHandle and save your id in there 
