@@ -1,6 +1,10 @@
+#### OkHttp Interceptor
+
 ### How to define a custom Interceptor :
 
 
+
+##### What are Interceptors?
 
 Interceptors, are a powerful mechanism that can monitor, rewrite, and retry the API call.
 
@@ -10,14 +14,12 @@ Interceptors function similarly to airport security personnel during the securit
 
 We can use interceptors to do a variety of things, such as centrally monitoring API calls.
 
-
-
 ##### Interceptor Types
 
 Interceptors are classified into two types:
 
-1. Interceptors added between the Application Code (our written code) and the OkHttp Core Library are referred to as application interceptors. These are the interceptors that we add with addInterceptor().
-2. Interceptors on the network: These are interceptors placed between the OkHttp Core Library and the server. These can be added to OkHttpClient by using the addNetworkInterceptor command ().
+1. **Application Interceptors**: Interceptors added between the Application Code (our written code) and the OkHttp Core Library are referred to as application interceptors. These are the interceptors that we add with addInterceptor().
+2. **Network Interceptors**: Interceptors on the network: These are interceptors placed between the OkHttp Core Library and the server. These can be added to OkHttpClient by using the addNetworkInterceptor command ().
 
 
 
@@ -26,52 +28,108 @@ Interceptors are classified into two types:
 We can add the interceptor while building the OkHttpClient object, as shown below :
 
 ```kt
-fun gfgHttpClient(): OkHttpClient {
+fun myHttpClient(): OkHttpClient {
      val builder = OkHttpClient().newBuilder()
          .addInterceptor(/*our interceptor*/)
      return builder.build()
  }
 ```
 
-and we want to  add a Custom interceptor 
-our use case is Record Log ServerError for example our Request face with 401 is Unauthorized and we want when the request face with this error code we want to show for example an error dialog 
+Here, in `addInterceptor`, we pass the interceptor that we have created. Now, let's see how to create the Interceptor.
+
+
+
+## Creating the Interceptor
+
+To create the interceptor, we need to create a class by implementing the Interceptor interface as below:
 
 ```kt
-class gfgInterceptor : Interceptor {
-	override fun intercept(chain: Interceptor.Chain): Response {
-		val aRequest: Request = chain.request()
-		val aResponse = chain.proceed(request)
-		when (response.code()) {
-			400 -> {
-				// Show Bad Request Error Message
-			}
-			401 -> {
-				// Show UnauthorizedError Message
-			}
-
-			403 -> {
-				// Show Forbidden Message
-			}
-
-			404 -> {
-				// Show NotFound Message
-			}
-
-			// ... and so on
-		}
-		return response
-	}
+class MyInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        /**
+         * Our API Call will be intercepted here
+         */
+    }
 }
 
 ```
 
-1. First, we obtain the request from the chain. request()
+Here, in the `intercept()`, we can perform any action which we want inside it.
 
-2. The response from the server is then obtained by passing the request through the chain.
+And to use the interceptor, we can use as below:
 
-3. Proceed(request) At this point, we can check for the response code and take action.
+```kt
+fun myHttpClient(): OkHttpClient {
+    val builder = OkHttpClient().newBuilder()
+        .addInterceptor(MyInterceptor())
+    return builder.build()
+}
 
-4. Pass this and wait for the results
+```
+
+##### Common use-cases we use interceptors in Android:
+
+### Logging the errors centrally
+
+
+
+```kt
+class ErrorInterceptor  : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val aRequest: Request = chain.request()
+        val aResponse = chain.proceed(request)
+        when (aResponse.code()) {
+            400 -> {
+                // Show Bad Request Error Message
+            }
+            401 -> {
+                // Show UnauthorizedError Message
+            }
+
+            403 -> {
+                // Show Forbidden Message
+            }
+
+            404 -> {
+                // Show NotFound Message
+            }
+
+            // ... and so on
+        }
+        return response
+    }
+}
+```
+
+1.  First, we get the request from the `chain.request()`
+
+2. Then, we get the response returned from the server, by passing the request in the `chain.proceed(request)`
+
+3. Now, we can check for the response code and perform an action.
+
+4. We can pass the error to the view.
+
+5. Let's say we get a **401 error** i.e. **Unauthorized** then we can perform an action to clear the app data/log out the user or any action which we want to perform.
+
+6. 
+
+```kt
+.addInterceptor(ErrorInterceptor())
+```
+
+
+
+
+
+
+
+
+
+
+
+#### How we can keeping response in the cache
+
+
 
 
 
@@ -114,3 +172,5 @@ class gfgInterceptor : Interceptor {
 Resource :
 
 [OkHttp Interceptor in Android - GeeksforGeeks](https://www.geeksforgeeks.org/okhttp-interceptor-in-android/)
+
+[OkHttp Interceptor](https://amitshekhar.me/blog/okhttp-interceptor)
