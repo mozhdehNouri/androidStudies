@@ -328,8 +328,6 @@ this forces you to pay attention your data is a state (use StateFlow then) or an
 | It does not emit consecutive repeated values. It emits the value only when it is distinct from the previous item.                                                                                                      | It emits all the values and does not care about the distinct from the previous item. It emits consecutive repeated values also. |
 | Similar to LiveData except for the Lifecycle awareness of the Android component. We should use repeatOnLifecycle scope with StateFlow to add the Lifecycle awareness to it, then it will become exactly like LiveData. | Not similar to LiveData.                                                                                                        |
 
-
-
 ##### StateFlow vs LiveData
 
 ### StateFlow, Flow, and LiveData
@@ -341,13 +339,9 @@ Note, however, that `StateFlow` and [`LiveData`](https://developer.android.co
 - `StateFlow` requires an initial state to be passed in to the constructor, while `LiveData` does not.
 - `LiveData.observe()` automatically unregisters the consumer when the view goes to the `STOPPED` state, whereas collecting from a `StateFlow` or any other flow does not stop collecting automatically. To achieve the same behavior,you need to collect the flow from a `Lifecycle.repeatOnLifecycle` block.
 
-
-
 #### Making cold flows hot using <u>shareIn</u> :
 
 `StateFlow` is a *hot* flow—it remains in memory as long as the flow is collected or while any other references to it exist from a garbage collection root. You can turn cold flows hot by using the  `shareIn `operator.
-
-
 
 ```kt
 class NewsRemoteDataSource(...,
@@ -362,6 +356,77 @@ class NewsRemoteDataSource(...,
     )
 }
 ```
+
+#### Combining Flow operator :
+
+combining two flows into one. There are a few ways to do this. 
+
+##### Merge :
+
+merging the elements from two flows into one. No modifications are made, no matter from which flow elements originate
+
+```kt
+import kotlinx.coroutines.flow.*
+
+suspend fun main() {
+    val ints: Flow<Int> = flowOf(1, 2, 3)
+    val doubles: Flow<Double> = flowOf(0.1, 0.2, 0.3)
+
+    val together: Flow<Number> = merge(ints, doubles)
+    print(together.toList())
+    // [1, 0.1, 0.2, 0.3, 2, 3]
+    // or [1, 0.1, 0.2, 0.3, 2, 3]
+    // or [0.1, 1, 2, 3, 0.2, 0.3]
+    // or any other combination
+}
+```
+
+It is important to know that when we use `merge` the elements from one flow do not wait for another flow.For instance, in the example below, elements from the first flow are delayed, but this does not stop the elements from the second flow.
+
+```kt
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+
+suspend fun main() {
+    val ints: Flow<Int> = flowOf(1, 2, 3)
+        .onEach { delay(1000) }
+    val doubles: Flow<Double> = flowOf(0.1, 0.2, 0.3)
+
+    val together: Flow<Number> = merge(ints, doubles)
+    together.collect { println(it) }
+}
+// 0.1
+// 0.2
+// 0.3
+// (1 sec)
+// 1
+// (1 sec)
+// 2
+// (1 sec)
+// 3
+```
+
+##### Zip :
+
+zip makes pairs from both flows. We also need to specify a function that decides how elements are paired (transformed into one what will be emitted in the new flow). Each element can only be part of one pair, so it needs to wait for its pair. Elements left without a pair are lost, so when the zipping of a flow is complete, the resulting flow is also complete (as is the other flow). Each element from one flow is paired with a corresponding element from the other flow, according to the order in which they are emitted. Once an element is paired, it cannot be paired with any other element, ensuring that each element is included in only one pair.
+
+
+
+```kt
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -379,14 +444,8 @@ Resource:
 
 https://medium.com/yemeksepeti-teknoloji/introduction-to-kotlin-flows-827f5a71ad7e#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2OTY5YWVjMzdhNzc4MGYxODgwNzg3NzU5M2JiYmY4Y2Y1ZGU1Y2UiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2ODE5MjQ5MjMsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExODM3NDYzMDAwNDcxODUyMzA3NiIsImVtYWlsIjoibW9qZGVub3VyaTc3QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoibW96aGRlaCBub3VyaSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BR05teXhhYXJqYnNVS2hKU3kzVjNoWlZCZV9XdWltWWFseHMxLUpkQWtEOT1zOTYtYyIsImdpdmVuX25hbWUiOiJtb3poZGVoIiwiZmFtaWx5X25hbWUiOiJub3VyaSIsImlhdCI6MTY4MTkyNTIyMywiZXhwIjoxNjgxOTI4ODIzLCJqdGkiOiI3ZDdkYTdjYmNiOGZkN2QwZDNlNDU4ZDg5MjM4MTg0NGYxOWVkYzVkIn0.cEv0GHE_Ro0QGdaRKDjeg0Sh95ZjA4LhXShJGr9e_5bB3p8w6YO_LalkXYuxwSV8-vODukWz5zfMwoycpbsKrwDIrUU2W5zdNDU202f8QeFgAC-HiK2LR7y2Kk0BHJpUmztonlkd-e939O1eqXWmHWM46KBIMtaipG_VGCIm_PmNt6Isiz3cEtWtoglDniFqb4I7L__jg38AnurMKz-fWhcPr2-4cyHIcwuLsf8S6MMG4teD4EP-9E3vwx4QWny2GOlVoKs-OLyXlRWtUc05KBg0n_mrEdDMIpjuEpymf-g5OMuV1m0uh9Mbz2wcfnV0_jM2pvArcyO60sGevdasKg
 
-
-
 [StateFlow and SharedFlow](https://amitshekhar.me/blog/stateflow-and-sharedflow)
 
-
-
 https://medium.com/swlh/introduction-to-flow-channel-and-shared-stateflow-e1c28c5bc755#:~:text=As%20you%20see%2C%20the%20main,and%20emits%20nothing%20by%20default.
-
-
 
 https://blog.mindorks.com/stateflow-apis-in-kotlin/#:~:text=Note%3A%20A%20regular%20Flow%20is%20cold%20but%20StateFlow%20is%20hot.

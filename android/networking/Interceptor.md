@@ -2,8 +2,6 @@
 
 ### How to define a custom Interceptor :
 
-
-
 ##### What are Interceptors?
 
 Interceptors, are a powerful mechanism that can monitor, rewrite, and retry the API call.
@@ -21,8 +19,6 @@ Interceptors are classified into two types:
 1. **Application Interceptors**: Interceptors added between the Application Code (our written code) and the OkHttp Core Library are referred to as application interceptors. These are the interceptors that we add with addInterceptor().
 2. **Network Interceptors**: Interceptors on the network: These are interceptors placed between the OkHttp Core Library and the server. These can be added to OkHttpClient by using the addNetworkInterceptor command ().
 
-
-
 ##### include interceptors in OkHttpClient
 
 We can add the interceptor while building the OkHttpClient object, as shown below :
@@ -37,8 +33,6 @@ fun myHttpClient(): OkHttpClient {
 
 Here, in `addInterceptor`, we pass the interceptor that we have created. Now, let's see how to create the Interceptor.
 
-
-
 ## Creating the Interceptor
 
 To create the interceptor, we need to create a class by implementing the Interceptor interface as below:
@@ -51,7 +45,6 @@ class MyInterceptor : Interceptor {
          */
     }
 }
-
 ```
 
 Here, in the `intercept()`, we can perform any action which we want inside it.
@@ -64,14 +57,11 @@ fun myHttpClient(): OkHttpClient {
         .addInterceptor(MyInterceptor())
     return builder.build()
 }
-
 ```
 
 ##### Common use-cases we use interceptors in Android:
 
 ### Logging the errors centrally
-
-
 
 ```kt
 class ErrorInterceptor  : Interceptor {
@@ -101,7 +91,7 @@ class ErrorInterceptor  : Interceptor {
 }
 ```
 
-1.  First, we get the request from the `chain.request()`
+1. First, we get the request from the `chain.request()`
 
 2. Then, we get the response returned from the server, by passing the request in the `chain.proceed(request)`
 
@@ -117,60 +107,14 @@ class ErrorInterceptor  : Interceptor {
 .addInterceptor(ErrorInterceptor())
 ```
 
-
-
-
-
-
-
-
-
-
-
 #### How we can keeping response in the cache
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Resource :
 
 [OkHttp Interceptor in Android - GeeksforGeeks](https://www.geeksforgeeks.org/okhttp-interceptor-in-android/)
 
 [OkHttp Interceptor](https://amitshekhar.me/blog/okhttp-interceptor)
+
+[OkHttp Interceptor in Android - GeeksforGeeks](https://www.geeksforgeeks.org/okhttp-interceptor-in-android/)
+
+https://amitshekhar.me/blog/caching-with-okhttp-interceptor-and-retrofit
