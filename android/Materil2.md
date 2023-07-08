@@ -103,31 +103,35 @@ if your primary color is  #6200EE(500)  you primary variant have to Two degrees 
 
 
 
+#### [Typography](, headlines span from a range of 1 through 6. Headlines are the largest text on the screen, reserved for short, important text or numerals.) :
 
+##### Headlines :
 
-#### Typography :
-
-
-
-
-
+headlines span from a range of 1 through 6. Headlines are the largest text on the screen, reserved for short, important text or numerals.
 
 
 
+### Subtitles
+
+Subtitles are smaller than headlines. They are typically reserved for medium-emphasis text that is shorter in length. Serif or sans serif typefaces work well for subtitles.
 
 
 
+### Body
+
+Body text comes in ranges 1-2, and it’s typically used for long-form writing as it works well for small text sizes. For longer sections of...
 
 
 
+### Caption and overline
+
+Caption and overline text (text with a line above it) are the smallest font sizes. They are used sparingly to annotate imagery or to introduce a headline.
 
 
 
+### Button
 
-
-
-
-
+Button text is a call to action used by different types of buttons (such as text, outlined and contained buttons) and in tabs, dialogs, and cards.
 
 
 
