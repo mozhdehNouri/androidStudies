@@ -81,15 +81,11 @@ Now that is where the remember value is coming from, `rememberedValue()` funct
 
 ### System UI controller   = rememberSystemUiController()
 
-
-
 we want to going to change the system bar colors and when we say system bar actually we referring to navigation bar and status bar color 
 
 for changing this color we have 2 option :
 
 1- change parameter `"android:statusBarColor"` and `android:navigationBarColor`  for both  light theme.xml and dark theme.xml file 
-
-
 
 2 - Using System UI Controller for jetpack compose 
 
@@ -128,8 +124,6 @@ when we have type `systemUiController.`  it suggest 3 parameter
 
 3- setSystemBarColor /// change both of those system bar colors
 
-
-
 or we can using this
 
 ```kt
@@ -142,29 +136,25 @@ SideEffect{
 )}
 ```
 
+------------------------------
 
+ look at this example 
 
+```kt
+Surface(
+    color = MaterialTheme.colors.surface,
+    contentColor = contentColorFor(color),
+    // ...
+) { /* ... */ }
 
+TopAppBar(
+    backgroundColor = MaterialTheme.colors.primarySurface,
+    contentColor = contentColorFor(backgroundColor),
+    // ...
+) { /* ... */ }
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The [`contentColorFor()`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#contentColorFor(androidx.compose.ui.graphics.Color)) method retrieves the appropriate "on" color for any theme colors. For example, if you set a [`primary`](https://developer.android.com/reference/kotlin/androidx/compose/material/Colors#primary()) background color on `Surface`, it uses this function to set [`onPrimary`](https://developer.android.com/reference/kotlin/androidx/compose/material/Colors#onPrimary()) as the content color. If you set a non-theme background color, you should also specify an appropriate content color. Use [`LocalContentColor`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#LocalContentColor()) to retrieve the preferred content color for the current background, at a given position in the hierarchy.
 
 
 
