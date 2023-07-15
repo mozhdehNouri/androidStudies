@@ -179,7 +179,6 @@ Box(
 ) {
     // Content of the second composable
 }
-
 ```
 
 In this example, we have two `Box` composables, one with a red background and the other with a blue background. The first composable has a lower `zIndex` value of 1, while the second composable has a higher `zIndex` value of 2.
@@ -197,3 +196,81 @@ like floating action Button what you want to sure is top on component.
 ----
 
 #### Modifier.clip
+
+To clip the composable to the region it's drawn in, you can add another `Modifier.clip(RectangleShape)` at the start of the modifier chain. The content then remains inside of the original bounds.
+
+ Rectangle shape, Rounded corner shape, Circle shape, and Cut corner shape.
+
+```kt
+ modifier = Modifier
+                .size(150.dp)
+                //.clip(RoundedCornerShape(0.dp))
+                .clip(RoundedCornerShape(12.dp))
+                //.clip(RoundedCornerShape(topEnd = 20.dp, bottomStart = 20.dp))
+                //.clip(androidx.compose.foundation.shape.CircleShape)
+
+                // * set height & width for rectangle shape : eg .size(150.dp,100.dp)
+                //.clip(RoundedCornerShape(12.dp))
+                //.clip(CutCornerShape(12.dp))
+                .background(Color.Black),
+```
+
+
+
+another example :
+
+```kt
+Column(modifier = Modifier.padding(16.dp)) {
+    Box(
+        modifier = Modifier
+            .clip(RectangleShape)
+            .size(200.dp)
+            .border(2.dp, Color.Black)
+            .graphicsLayer {
+                clip = true
+                shape = CircleShape
+                translationY = 50.dp.toPx()
+            }
+            .background(Color(0xFFF06292))
+    ) {
+        Text(
+            "Hello Compose",
+            style = TextStyle(color = Color.Black, fontSize = 46.sp),
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
+
+    Box(
+        modifier = Modifier
+            .size(200.dp)
+            .clip(RoundedCornerShape(500.dp))
+            .background(Color(0xFF4DB6AC))
+    )
+}
+```
+
+------
+
+###### different between wrapContentWidth and align
+
+```kt
+  Text(
+                modifier = Modifier
+                    .weight(1f)
+                    .wrapContentWidth(Alignment.Start)
+            )
+```
+
+```kt
+Modifier.align(Alignment.CenterVertically)
+```
+
+`modifier.wrapContentSizeWidth(Alignment.Start)`: This modifier is typically used to wrap the width of a UI element to its content size, allowing the element to take up only as much width as necessary. The `Alignment.Start` parameter specifies that the element should be aligned to the start (left) edge of its parent container. This means that the element's content will be aligned to the left while taking up the minimum required width.
+
+
+
+`modifier.align(Alignment.CenterVertically)`: This modifier is used to align a UI element within its parent container along the vertical axis. The `Alignment.CenterVertically` parameter specifies that the element should be centered vertically within its parent container. This means that the element's vertical midpoint will be aligned with the vertical midpoint of its parent.
+
+--------------
+
+###### diffrenet between modifier.shape() and modifier.clip()
