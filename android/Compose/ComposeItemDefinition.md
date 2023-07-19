@@ -269,19 +269,9 @@ Modifier.align(Alignment.CenterVertically)
 
 --------------
 
-###### diffrenet between modifier.shape() and modifier.clip()
+###### modifier.clip()
 
-the `modifier.shape()` and `modifier.clip()` functions are commonly used for defining the shape and clipping behavior of composables. Here's a breakdown of their usage:
 
-`modifier.shape()`: This function is used to define the shape of a composable. It allows you to specify various shapes such as rectangles, rounded rectangles, circles, or custom shapes using a `Shape` parameter. The `modifier.shape()` function can be applied to any composable that supports shape modifications, like `Box`, `Card`, or `Surface`. For example, you can use it to create rounded corners for a `Card` composable:
-
-```kt
-Card(
-    modifier = Modifier.shape(RoundedCornerShape(8.dp))
-) {
-    // Content of the card
-}
-```
 
 `modifier.clip()`: This function is used to define the clipping behavior of a composable. It allows you to specify how the content within a composable should be clipped. Clipping determines which portions of the content should be visible and which should be hidden. You can use different shapes or paths to define the clipping behavior.
 
