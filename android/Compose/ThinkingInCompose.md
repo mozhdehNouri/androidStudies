@@ -83,4 +83,4 @@ the process of converting state into Ui and state changes causing UI to regenera
 
 
 
-
+[More performance tips for Jetpack Compose - YouTube](https://www.youtube.com/watch?v=ahXLwg2JYpc)

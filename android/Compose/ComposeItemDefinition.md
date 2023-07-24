@@ -271,8 +271,6 @@ Modifier.align(Alignment.CenterVertically)
 
 ###### modifier.clip()
 
-
-
 `modifier.clip()`: This function is used to define the clipping behavior of a composable. It allows you to specify how the content within a composable should be clipped. Clipping determines which portions of the content should be visible and which should be hidden. You can use different shapes or paths to define the clipping behavior.
 
 ----
@@ -284,3 +282,9 @@ Modifier.align(Alignment.CenterVertically)
 `Modifier.SizeIn(minWidth =11.dp , minHeight =52.dp , maxWidth =14.dp , maxHeight =41.dp):` we  have both minimun and maxmum for height and minimum and maximum for width and we can initial both of them
 
 `Modifier.defaulMinSize() :`  it just define min size of heigh and width
+
+
+
+`modifier.wrapContentWidth(Alignment.Start)`
+
+`modifier.wrapContentHight(Alignment.Start)`
