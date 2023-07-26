@@ -12,8 +12,6 @@ You should create the `NavController` in the place in your composable hierarch
 
 Each [`NavController`](https://developer.android.com/reference/androidx/navigation/NavController) must be associated with a single [`NavHost`](https://developer.android.com/reference/kotlin/androidx/navigation/compose/package-summary#NavHost(androidx.navigation.NavHostController,kotlin.String,androidx.compose.ui.Modifier,kotlin.String,kotlin.Function1)) composable. The `NavHost` links the `NavController` with a navigation graph that specifies the composable destinations that you should be able to navigate between. As you navigate between composables, the content of the `NavHost` is automatically [recomposed](https://developer.android.com/jetpack/compose/mental-model#recomposition). Each composable destination in your navigation graph is associated with a *route*.
 
-
-
 Creating the `NavHost` requires the `NavController` previously created via `rememberNavController()` and the route of the starting destination of your graph. `NavHost` creation uses the lambda syntax from the [Navigation Kotlin DSL](https://developer.android.com/guide/navigation/navigation-kotlin-dsl#navgraphbuilder) to construct your navigation graph. You can add to your navigation structure by using the [`composable()`](https://developer.android.com/reference/kotlin/androidx/navigation/compose/package-summary#(androidx.navigation.NavGraphBuilder).composable(kotlin.String,kotlin.collections.List,kotlin.collections.List,kotlin.Function1)) method.
 
 ```kt
@@ -24,8 +22,6 @@ NavHost(navController = navController, startDestination = "profile") {
 }
 ```
 
-
-
 ##### navigate with an argument :
 
 Navigation Compose also supports passing arguments between composable destinations. In order to do this, you need to add argument placeholders to your route
@@ -35,7 +31,6 @@ NavHost(startDestination = "profile/{userId}") {
     ...
     composable("profile/{userId}") {...}
 }
-
 ```
 
 By default, all arguments are parsed as strings. The `arguments` parameter of `composable()` accepts a list of [`NamedNavArgument`](https://developer.android.com/reference/androidx/navigation/NamedNavArgument)s. You can quickly create a `NamedNavArgument` using the [`navArgument`](https://developer.android.com/reference/kotlin/androidx/navigation/package-summary#navArgument(kotlin.String,kotlin.Function1)) method and then specify its exact `type`:
@@ -66,8 +61,6 @@ navController.navigate("profile/user1234")
 
 It is strongly advised not to pass around complex data objects when navigating, but instead pass the minimum necessary information, such as a unique identifier or other form of ID, as arguments when performing navigation actions:
 
-
-
 Complex objects should be stored as data in a single source of truth, such as the data layer. Once you land on your destination after navigating, you can then load the required information from the single source of truth by using the passed ID. To retrieve the arguments in your ViewModel that's responsible for accessing the data layer, you can use the `ViewModel’s` [`SavedStateHandle`](https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate#savedstatehandle):
 
 ```kt
@@ -87,8 +80,6 @@ class UserViewModel(
 }
 ```
 
-
-
 ### Adding optional arguments
 
 Navigation Compose also supports optional navigation arguments. Optional arguments differ from required arguments in two ways:
@@ -106,20 +97,6 @@ composable(
     Profile(navController, backStackEntry.arguments?.getString("userId"))
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Resource:
 

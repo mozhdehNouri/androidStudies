@@ -283,8 +283,33 @@ Modifier.align(Alignment.CenterVertically)
 
 `Modifier.defaulMinSize() :`  it just define min size of heigh and width
 
-
-
 `modifier.wrapContentWidth(Alignment.Start)`
 
 `modifier.wrapContentHight(Alignment.Start)`
+
+---
+
+diffrent between navController.currentBackStackEntryAsState()  and  navController.currentBackStackEntry()
+
+and when you should use which one 
+
+
+
+`currentBackStackEntryAsState` :  
+
+This property is used in a Composable function when you're using Jetpack Compose along with the Navigation component. It allows you to observe changes to the current back stack entry, and it returns the current `BackStackEntry` as a State object. You can access properties and navigate based on the observed state.
+
+Use this property in Jetpack Compose when you want to observe changes to the current back stack entry. This is helpful when you want to react to navigation events and update your UI based on the current destination.
+
+```kt
+val navBackStackEntry by navController.currentBackStackEntryAsState()
+```
+
+`currentBackStackEntry`:
+This property returns the current `BackStackEntry` without observing changes like the `currentBackStackEntryAsState` property.
+
+Use this property when you want to get the current `BackStackEntry` without observing changes. You may use this to retrieve information from the current entry or navigate based on the current state without observing changes over time.
+
+```kt
+val navBackStackEntry = navController.currentBackStackEntry
+```
