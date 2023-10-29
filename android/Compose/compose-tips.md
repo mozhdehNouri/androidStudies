@@ -67,9 +67,7 @@ fun MyBasicColumn(
 
 we can **then** on modifier to attach 2 modifier together 
 
-
 for example
-
 
 ```kt
     val backgroundModifier = if (selected) {
@@ -81,8 +79,6 @@ for example
         Modifier
     }
 ```
-
-
 
 usage :
 
@@ -117,23 +113,15 @@ scrollBehavior: TopAppBarScrollBehavior? = null
 
 and for behavior ,we use this item 
 
-
-
-
 ```kt
-
   val topBarState = rememberTopAppBarState()
 
   val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(topBarState)
 ```
 
-
-
 TopAppBarDefaults = Contains default values used for the top app bar implementations.
 
 pinnedScrollBehavior = Returns a pinned TopAppBarScrollBehavior that tracks nested-scroll callbacks and updates its TopAppBarState.contentOffset accordingly.
-
-
 
 action   = this used for CenterAppBar  and its not and action 
 actully it is an composable scope we can define an icon 
@@ -141,10 +129,32 @@ actully it is an composable scope we can define an icon
 according to the document definition =
 **the actions displayed at the end of the top app bar. This should typically be IconButtons. The default layout here is a Row, so icons inside will be placed horizontally**
 
+----
 
+#### @DrawableRes
+
+@DrawableRes is an annotation that can be used **to indicate that an integer parameter, field or method return value is expected to be a drawable resource reference** (e.g. R. drawable. my_image ). This annotation is used by the Android build tools to validate that the resource reference is valid at compile time.
 
 ----
 
+## Semantics :
+
+
+
+Compose uses *semantics properties* to pass information to accessibility services. Semantics properties provide information about UI elements that are displayed to the user. Most built-in composables like [`Text`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Text(kotlin.String,androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.font.FontStyle,androidx.compose.ui.text.font.FontWeight,androidx.compose.ui.text.font.FontFamily,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.style.TextDecoration,androidx.compose.ui.text.style.TextAlign,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.style.TextOverflow,kotlin.Boolean,kotlin.Int,kotlin.Function1,androidx.compose.ui.text.TextStyle)) and [`Button`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Button(kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Boolean,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.material.ButtonElevation,androidx.compose.ui.graphics.Shape,androidx.compose.foundation.BorderStroke,androidx.compose.material.ButtonColors,androidx.compose.foundation.layout.PaddingValues,kotlin.Function1)) fill these semantics properties with information inferred from the composable and its children. Some modifiers like [`toggleable`](https://developer.android.com/reference/kotlin/androidx/compose/foundation/selection/package-summary#toggleable(androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.Boolean,androidx.compose.ui.semantics.Role,kotlin.Function1)) and [`clickable`](https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary#clickable(androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.String,androidx.compose.ui.semantics.Role,kotlin.Function0)) will also set certain semantics properties. However, sometimes the framework needs more information to understand how to describe a UI element to the user.
+
+
+
+A Composition [describes the UI](https://developer.android.com/jetpack/compose/mental-model) of your app and is produced by running composables. The Composition is a tree-structure that consists of the composables that describe your UI.
+
+Next to the Composition, there exists a parallel tree, called the *Semantics tree*. This tree describes your UI in an alternative manner that is understandable for [Accessibility](https://developer.android.com/jetpack/compose/accessibility) services and for the [Testing](https://developer.android.com/jetpack/compose/testing) framework. Accessibility services use the tree to describe the app to users with a specific need. The Testing framework uses it to interact with your app and make assertions about it. The Semantics tree does not contain the information on how to *draw* your composables, but it contains information about the **semantic *meaning*** of your composables.
+
+---
+
+key point of lifecycle and remember :
+The `remember`ed stuff only lasts till the Composable gets destroyed. If you navigate to another screen, the previous Composables are destroyed and along with them, the scroll state
+
+---
 
 
 
@@ -158,30 +168,7 @@ according to the document definition =
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 https://medium.com/androiddevelopers/fundamentals-of-compose-layouts-and-modifiers-64d794664b66
 
