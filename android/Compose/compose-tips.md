@@ -139,11 +139,7 @@ according to the document definition =
 
 ## Semantics :
 
-
-
 Compose uses *semantics properties* to pass information to accessibility services. Semantics properties provide information about UI elements that are displayed to the user. Most built-in composables like [`Text`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Text(kotlin.String,androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.font.FontStyle,androidx.compose.ui.text.font.FontWeight,androidx.compose.ui.text.font.FontFamily,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.style.TextDecoration,androidx.compose.ui.text.style.TextAlign,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.style.TextOverflow,kotlin.Boolean,kotlin.Int,kotlin.Function1,androidx.compose.ui.text.TextStyle)) and [`Button`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Button(kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Boolean,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.material.ButtonElevation,androidx.compose.ui.graphics.Shape,androidx.compose.foundation.BorderStroke,androidx.compose.material.ButtonColors,androidx.compose.foundation.layout.PaddingValues,kotlin.Function1)) fill these semantics properties with information inferred from the composable and its children. Some modifiers like [`toggleable`](https://developer.android.com/reference/kotlin/androidx/compose/foundation/selection/package-summary#toggleable(androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.Boolean,androidx.compose.ui.semantics.Role,kotlin.Function1)) and [`clickable`](https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary#clickable(androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.String,androidx.compose.ui.semantics.Role,kotlin.Function0)) will also set certain semantics properties. However, sometimes the framework needs more information to understand how to describe a UI element to the user.
-
-
 
 A Composition [describes the UI](https://developer.android.com/jetpack/compose/mental-model) of your app and is produced by running composables. The Composition is a tree-structure that consists of the composables that describe your UI.
 
@@ -156,19 +152,114 @@ The `remember`ed stuff only lasts till the Composable gets destroyed. If you na
 
 ---
 
+@Immutable annotion in compose android 
+
+- `Immutable` can be used to mark a class that produces immutable instances. In short, a class that has all public fields declared as `val`.
+- This is a promise to the compose compiler that ***once the object is constructed, the properties inside it won't change at runtime***.
+- Immutable is used by a composition that enables composition optimizations that can be performed based on the assumption that values read from the type will not change.
+
+So, when you use the "@Immutable" sticker on a class in your computer program, it tells the computer that the things inside that class (we call them properties) won't change after they're created. This helps the computer do some clever things to make your program work faster and better because it knows that nothing in that class will change while it's playing with it.
+
+In Compose, when you use the `@Immutable` sticker on a class, it's like telling Compose that the things inside that class won't change. This is really helpful for Compose because it can do some cool tricks to make your app run smoother and faster.
+
+Similarly, when Compose knows that the data in a class won't change (thanks to `@Immutable`), it can build your app's user interface more efficiently. It can be confident that the data it's using to create the interface won't suddenly change, so it can make your app run faster and work better.
 
 
 
+[Promise compose compiler and imply when you&#x27;ll change 🤞](https://blog.shreyaspatil.dev/promise-compose-compiler-and-imply-when-youll-change)     read this article for improve composable perforamce
 
 
 
+---
 
+you can write code like this  :
+
+
+```kt
+class ConversationUiState(
+    val channelName: String,
+    val channelMembers: Int,
+    initialMessages: List<Message>
+) {
+    private val _messages: MutableList<Message> = initialMessages.toMutableStateList()
+    val messages: List<Message> = _messages
+
+    fun addMessage(msg: Message) {
+        _messages.add(0, msg) // Add to the beginning of the list
+    }
+}
+```
+
+**toMutableStateList**: Create an instance of MutableList from a collection that is observable and can be snapshot.
+
+---
+
+Modifier.testTag("")
+
+Applies a tag to allow modified element to be found in tests.
+This is a convenience method for a semantics that sets SemanticsPropertyReceiver.testTag.
+
+## Semantics
+
+UI tests in Compose use *semantics* to interact with the UI hierarchy. Semantics, as the name implies, give meaning to a piece of UI. In this context, a "piece of UI" (or element) can mean anything from a single composable to a full screen. The *semantics tree* is generated alongside the UI hierarchy, and describes it.
+
+
+
+if you want to konw what is diffrent between these lets continue :
+
+
+- `Modifier.testTag`: It's like putting a name on a toy. It helps you find and use a specific thing in your app when you want to test or interact with it.
+
+- `Modifier.semantics`: It's like telling your friend how a toy works, so they can use it properly. It's not just for testing; it's also for helping people who might need assistance using your app.
+
+----
+
+**reverseLayout = true in lazyColumn**
+
+if our list is  
+
+val list = listOf("a","b","c")
+
+then when you reverseLayout = true
+
+you can see your item like this : c,b,a
+
+---
+
+LocalUriHandler.current
+Certainly! In Jetpack Compose, `LocalUriHandler.current` is a tool that helps you open web links or handle URIs in your app. It's like having a special button to deal with website links. You can use it to tell your app what to do when someone clicks on a web link.
+
+```kt
+@Composable
+fun OpenWebLink() {
+    val uriHandler = LocalUriHandler.current
+
+    // You can use uriHandler to open a web link when needed.
+    uriHandler.openUri("https://www.example.com")
+}
+```
+
+---
 
 
 
 
 
 ---
+
+----
+
+
+
+----
+
+---
+
+---
+
+
+
+
 
 https://medium.com/androiddevelopers/fundamentals-of-compose-layouts-and-modifiers-64d794664b66
 
