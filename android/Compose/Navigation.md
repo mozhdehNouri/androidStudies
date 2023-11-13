@@ -98,6 +98,37 @@ composable(
 }
 ```
 
+ Essentially part of navigation you have to know about it :
+
+1. **Navigation Graph:**
+   
+   - In the Jetpack Navigation library, you define a navigation graph that represents the different screens and the possible navigation paths between them.
+   - The navigation graph is usually defined in XML for traditional Android Views, but in Compose, you define it using Kotlin DSL.
+
+2. **NavHost:**
+   
+   - The `NavHost` is where your navigation graph is hosted. It acts as a container for displaying different composables corresponding to different destinations in your app.
+   - The `NavHost` component manages the navigation state and is responsible for showing the appropriate content based on the current destination.
+
+3. **NavController:**
+   
+   - The `NavController` is an object that manages navigation within the `NavHost`. It keeps track of the current navigation state, allowing you to navigate between different destinations in your app.
+
+4. **NavGraphBuilder:**
+   
+   - When working with Compose, you use the `NavHost` and `NavController` in combination with the `NavGraphBuilder` to define your navigation graph in code.
+   - The `NavGraphBuilder` is a DSL (Domain-Specific Language) that you use to build the navigation graph within the `NavHost`.
+
+
+
+
+
+
+
+
+
+
+
 Resource:
 
 https://developer.android.com/jetpack/compose/navigation
