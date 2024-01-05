@@ -129,3 +129,15 @@ One other consideration when implementing the domain layer is whether you should
 source :
 
 https://developer.android.com/topic/architecture/domain-layer
+
+
+
+// domain main sample 
+https://www.droidcon.com/2023/08/14/transforming-usecase-embracing-fluent-and-functional-approach-2023/
+
+https://betterprogramming.pub/how-to-avoid-use-cases-boilerplate-in-android-d0c9aa27ef27
+
+
+https://itnext.io/domain-driven-android-building-a-model-which-makes-sense-badb774c606d
+
+https://developer.android.com/topic/architecture/domain-layer
