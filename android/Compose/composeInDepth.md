@@ -156,32 +156,6 @@ TopAppBar(
 
 The [`contentColorFor()`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#contentColorFor(androidx.compose.ui.graphics.Color)) method retrieves the appropriate "on" color for any theme colors. For example, if you set a [`primary`](https://developer.android.com/reference/kotlin/androidx/compose/material/Colors#primary()) background color on `Surface`, it uses this function to set [`onPrimary`](https://developer.android.com/reference/kotlin/androidx/compose/material/Colors#onPrimary()) as the content color. If you set a non-theme background color, you should also specify an appropriate content color. Use [`LocalContentColor`](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#LocalContentColor()) to retrieve the preferred content color for the current background, at a given position in the hierarchy.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 resource :
 
 https://blog.devgenius.io/making-sense-of-compose-magic-deep-dive-b03873910a67
