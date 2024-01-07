@@ -1,0 +1,3 @@
+##### Seald class in kotlin
+
+
